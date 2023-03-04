@@ -1,4 +1,4 @@
-def gv
+
 
 pipeline {
     agent any
@@ -10,11 +10,15 @@ pipeline {
             stage("build") {
             steps {
                 script {
-                    gv.buildApp()
+                    echo "building the application"
                 }
             }
         }
         stage('test') {
+             when {
+                expression {
+                    params.executeTests
+                }
             steps {
                 script {
                     echo "Testing the application..."
@@ -24,8 +28,10 @@ pipeline {
             steps {
                 script {
                     echo "Deploying the application..."
+                    echo "Deploying version ${VERSION}"
                 }
             }
         }
     }
 }
+

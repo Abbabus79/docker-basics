@@ -1,6 +1,6 @@
 def buildApp() {
     echo "building the application..."
-      sh 'npm install'
+   
 } 
 
 def testApp() {
@@ -9,7 +9,7 @@ def testApp() {
 
 def buildImage() {
     echo "building the docker image..."
-    withCredentials([usernamePassword(credentialsId: 'docker-hub-my-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh 'docker build -t papis84/my-repo:njsa-1.0 .'
         sh "echo $PASS | docker login -u $USER --password-stdin"
         sh 'docker push papis84/my-repo:njsa-1.0'
